@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "papier 2.0",
+    "slug": "papier",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "owner": "pshktrck",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#f6f6f6",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#f6f6f6",
+      "image": "./assets/splash.png",
+      "resizeMode": "contain"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.apk.pshktrck.papier",
+    },
+    "android": {
+      "package": "com.apk.pshktrck.papier"
+    },
+    "description": "portable version of papier"
+  }
+}
