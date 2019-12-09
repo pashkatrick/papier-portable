@@ -29,13 +29,10 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        let mock = JSON.stringify([{"id":"l33jcKmM","component":"text","content":[{"id":"pseqQE74","text":"Thank you for downloading Papier!","len":16,"tag":"body","stype":[],"styleList":{"fontSize":20},"NewLine":false,"readOnly":false},{"id":"iMEV8WzQa","text":"\nNow you can:","len":19,"tag":"body","stype":["bold"],"styleList":{"fontWeight":"bold","fontSize":20},"NewLine":true,"readOnly":false},{"id":"IMjM2pH8","text":"\n","len":1,"tag":"body","stype":[],"styleList":{},"NewLine":true,"readOnly":false},{"id":"PgGGT4O_","text":"\n• ","len":3,"tag":"ul","stype":[],"styleList":{},"NewLine":true,"readOnly":true},{"id":"nqHKmf9gJ","text":"highlight your ideas","len":5,"tag":"ul","stype":[],"styleList":{},"NewLine":false,"readOnly":false},{"id":"63KeG6uJW","text":"\n• ","len":3,"tag":"ul","stype":[],"styleList":{},"NewLine":true,"readOnly":true},{"id":"zt5GT_QGs","text":"sketch  your feelings","len":6,"tag":"ul","stype":["italic"],"styleList":{},"NewLine":false,"readOnly":false},{"id":"10Fe04XA","text":"\n• ","len":3,"tag":"ul","stype":["italic"],"styleList":[],"NewLine":true,"readOnly":true},{"id":"pAnz9Du7","text":"fly like a superman","len":7,"tag":"ul","NewLine":false,"stype":["lineThrough"],"styleList":{"textDecorationLine":"line-through","fontSize":20}},{"id":"0sISE85N","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n\nYour thoughts are backed up directly to phone: no accounts, no syncing.","NewLine":true,"readOnly":false},{"id":"0sISE8jK","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n------","NewLine":true,"readOnly":false},{"id":"0sISE8jN","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\nMade by 🍀 and phsktrck.ru","NewLine":true,"readOnly":false},{"id":"0sISE8jL","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\nInspired by muxumuxu.com","NewLine":true,"readOnly":false},{"id":"0sISE6jN","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n\nLet's take a note 😉","NewLine":true,"readOnly":false}]}]
-);
-
         this.state = {
             selectedTag : 'body',
             selectedStyles : [],
-            value: JSON.parse(mock),
+            value: [getInitialObject()],
             // value: ,
             fontLoaded: false
         };
@@ -44,13 +41,20 @@ class App extends Component {
     }
 
     async getKey() {
-      // console.log(JSON.stringify(this.state.value));
       try {
+
+        let mock = JSON.stringify([{"id":"l33jcKmM","component":"text","content":[{"id":"pseqQE74","text":"Thank you for downloading Papier!","len":16,"tag":"body","stype":[],"styleList":{"fontSize":20},"NewLine":false,"readOnly":false},{"id":"iMEV8WzQa","text":"\nNow you can:","len":19,"tag":"body","stype":["bold"],"styleList":{"fontWeight":"bold","fontSize":20},"NewLine":true,"readOnly":false},{"id":"IMjM2pH8","text":"\n","len":1,"tag":"body","stype":[],"styleList":{},"NewLine":true,"readOnly":false},{"id":"PgGGT4O_","text":"\n• ","len":3,"tag":"ul","stype":[],"styleList":{},"NewLine":true,"readOnly":true},{"id":"nqHKmf9gJ","text":"highlight your ideas","len":5,"tag":"ul","stype":[],"styleList":{},"NewLine":false,"readOnly":false},{"id":"63KeG6uJW","text":"\n• ","len":3,"tag":"ul","stype":[],"styleList":{},"NewLine":true,"readOnly":true},{"id":"zt5GT_QGs","text":"sketch  your feelings","len":6,"tag":"ul","stype":["italic"],"styleList":{},"NewLine":false,"readOnly":false},{"id":"10Fe04XA","text":"\n• ","len":3,"tag":"ul","stype":["italic"],"styleList":[],"NewLine":true,"readOnly":true},{"id":"pAnz9Du7","text":"fly like a superman","len":7,"tag":"ul","NewLine":false,"stype":["lineThrough"],"styleList":{"textDecorationLine":"line-through","fontSize":20}},{"id":"0sISE85N","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n\nYour thoughts are backed up directly to phone: no accounts, no syncing.","NewLine":true,"readOnly":false},{"id":"0sISE8jK","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n------","NewLine":true,"readOnly":false},{"id":"0sISE8jN","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\nMade by 🍀 and phsktrck.ru","NewLine":true,"readOnly":false},{"id":"0sISE8jL","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\nInspired by muxumuxu.com","NewLine":true,"readOnly":false},{"id":"0sISE6jN","len":16,"stype":[],"styleList":{"fontSize":20},"tag":"body","text":"\n\nLet's take a note 😉","NewLine":true,"readOnly":false}]}]);
+
         const data = await AsyncStorage.getItem('@MySuperStore:key');
         // console.log(data);
         if(data) {
           this.setState({
               value: JSON.parse(data)
+          });
+        }
+        else {
+          this.setState({
+              value: JSON.parse(mock)
           });
         }
       } catch (error) {
@@ -159,7 +163,7 @@ class App extends Component {
                                             buttonTypes: 'tag',
                                             iconComponent:
                                                 <Text style={styles.toolbarButton}>
-                                                Тт
+                                                ✍🏻
                                                 </Text>
                                         },
                                     ]
@@ -181,58 +185,47 @@ class App extends Component {
                                     type: 'separator'
                                 },
                                 {
-                                    type: 'tool',
-                                    iconArray: [{
-                                        toolTypeText: 'bold',
-                                        buttonTypes: 'style',
-                                        iconComponent:
-                                            <Text style={styles.toolbarButton}>
-                                            b
-                                            </Text>
-                                    }]
+                                  type: 'tool',
+                                  iconArray: [{
+                                      toolTypeText: 'bold',
+                                      buttonTypes: 'style',
+                                      iconComponent:
+                                      <Text style={styles.toolbarButton}>
+                                      b
+                                      </Text>
+                                  }]
                                 },
                                 {
-                                type: 'tool',
-                                iconArray: [{
-                                    toolTypeText: 'italic',
-                                    buttonTypes: 'style',
-                                    iconComponent:
-                                        <Text style={styles.toolbarButton}>
-                                        i
-                                        </Text>
-                                }]
-                              },
-                              {
+                                  type: 'tool',
+                                  iconArray: [{
+                                      toolTypeText: 'italic',
+                                      buttonTypes: 'style',
+                                      iconComponent:
+                                      <Text style={styles.toolbarButton}>
+                                      i
+                                      </Text>
+                                  }]
+                                },
+                                {
                                   type: 'tool',
                                   iconArray: [{
                                       toolTypeText: 'lineThrough',
                                       buttonTypes: 'style',
                                       iconComponent:
                                       <Text style={styles.toolbarButton}>
-                                      💡
+                                      ~
                                       </Text>
                                   }]
-                              },
-                              {
-                                  type: 'tool',
-                                  iconArray: [{
-                                      toolTypeText: 'lineThrough',
-                                      buttonTypes: 'style',
-                                      iconComponent:
-                                      <Text style={styles.toolbarButton}>
-                                      💡
-                                      </Text>
-                                  }]
-                              }
-                              // {
+                                },
+                              //   {
                               //     type: 'tool',
                               //     iconArray: [{
                               //         toolTypeText: 'highlight',
                               //         buttonTypes: 'style',
-                              //         iconComponent: this.renderHighlight()
-                              //             // <Text style={styles.toolbarButton}>
-                              //             // 💡
-                              //             // </Text>
+                              //         iconComponent:
+                              //         <Text style={styles.toolbarButton}>
+                              //         💡
+                              //         </Text>
                               //     }]
                               // }
                             ]}
